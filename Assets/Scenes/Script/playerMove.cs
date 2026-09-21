@@ -11,7 +11,7 @@ public class playerMove : MonoBehaviour
 
     [Header("이동 설정")]
     [SerializeField] private float duration = 0.15f;
-    [SerializeField] private int moveCount = 0;
+    [SerializeField] public int moveCount = 0;
     private Vector3Int currentCell;
     private bool isMoving;
     
