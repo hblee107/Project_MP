@@ -2,12 +2,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using static UnityEngine.Rendering.DebugUI;
 
 public class playerMove : MonoBehaviour
 {
     [Header("타일맵")]
     [SerializeField] private Tilemap moveableTile;
     [SerializeField] private Tilemap wallTilemap;
+
+    [Header("이벤트 시스템")]
+    [SerializeField] private eventManager eventSystem;
 
     [Header("이동 설정")]
     [SerializeField] private float duration = 0.15f;
@@ -39,6 +43,13 @@ public class playerMove : MonoBehaviour
             TryMove(direction);
         }
     }
+    public void OnInteract(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            eventSystem.StartEvent(currentCell);
+        }
+    }
 
     private Vector3Int GetDirection(Vector2 input)
     {
@@ -60,7 +71,7 @@ public class playerMove : MonoBehaviour
         if (wallTilemap != null && wallTilemap.HasTile(targetCell))
             return;
 
-        StartCoroutine(MoveToCell(targetCell));
+            StartCoroutine(MoveToCell(targetCell));
     }
 
     private IEnumerator MoveToCell(Vector3Int targetCell)

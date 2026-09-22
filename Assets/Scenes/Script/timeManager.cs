@@ -36,7 +36,7 @@ public class timeManager : MonoBehaviour
         }
         else 
         {
-            Debug.Log($"현재 시간은 {currentHour:D2}:{currentMinute:D2}입니다.");
+            //Debug.Log($"현재 시간은 {currentHour:D2}:{currentMinute:D2}입니다.");
         }
 
         currentHour = currentTime / 60;
