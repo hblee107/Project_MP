@@ -45,11 +45,20 @@ public class playerMove : MonoBehaviour
     }
     public void OnInteract(InputValue inputValue)
     {
+        // 이동 중일 때는 상호작용 불가
+        if (isMoving) return;
+
         if (inputValue.isPressed)
         {
-            eventSystem.StartEvent(currentCell);
+            if (eventSystem != null)
+            {
+                eventSystem.StartEvent(currentCell);
+            }
         }
     }
+
+
+    
 
     private Vector3Int GetDirection(Vector2 input)
     {
@@ -100,4 +109,5 @@ public class playerMove : MonoBehaviour
         moveCount++;
         isMoving = false;
     }
+  
 }
