@@ -10,6 +10,9 @@ public class eventManager : MonoBehaviour
     [SerializeField] private TileBase eventTile1;
     [SerializeField] private TileBase eventTile2;
     [SerializeField] private TileBase eventTile3;
+    [SerializeField] private TileBase eventTile4;
+
+    [SerializeField] int document = 0;
 
     private bool isReportCompleted = false; // 보고서 작성 완료 여부
 
@@ -43,7 +46,11 @@ public class eventManager : MonoBehaviour
         }
         else if (currentTile == eventTile3)
         {
-            Event3(cellPosition);
+            GetDocument(cellPosition);
+        }
+        else if (currentTile == eventTile4)
+        {
+            Event4(cellPosition);
         }
     }
 
@@ -94,7 +101,18 @@ public class eventManager : MonoBehaviour
         }
     }
 
-  
+    private void GetDocument(Vector3Int cellPosition)
+    {
+        Debug.Log("4번");
+        document++;
+        eventTilemap.SetTile(cellPosition, null);
+    }
+
+    private void Event4(Vector3Int cellPosition)
+    {
+        Debug.Log(CountTiles());
+    }
+
     public void CompletePrinterProcess()
     {
         if (currentPrinterState == PrinterState.Printing)
@@ -104,10 +122,26 @@ public class eventManager : MonoBehaviour
         }
     }
 
-
-    private void Event3(Vector3Int cellPosition)
+    public int CountTiles()
     {
-        Debug.Log("3번");
+        if (eventTilemap == null || eventTile3 == null)
+            return 0;
+
+        int count = 0;
+        BoundsInt bounds = eventTilemap.cellBounds;
+
+        foreach (Vector3Int cellPosition in bounds.allPositionsWithin)
+        {
+            TileBase currentTile = eventTilemap.GetTile(cellPosition);
+
+            if (currentTile == eventTile3)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
+
 }
 
