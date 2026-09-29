@@ -5,12 +5,18 @@ public class eventManager : MonoBehaviour
 {
     [Header("이벤트 타일맵")]
     [SerializeField] private Tilemap eventTilemap;
+    [SerializeField] private playerMove player;
 
     [Header("이벤트 타일")]
     [SerializeField] private TileBase eventTile1;
     [SerializeField] private TileBase eventTile2;
     [SerializeField] private TileBase eventTile3;
     [SerializeField] private TileBase eventTile4;
+
+    private readonly int requiredMinutes = 60; // 프린트 출력 필요 시간
+    private readonly int minutesPerMove = 15;   // 1칸 이동당 15분
+    private int printStartMoveCount = 0;       // 프린터 작동을 시작한 시점의 moveCount
+
 
     [SerializeField] int document = 0;
 
@@ -78,22 +84,30 @@ public class eventManager : MonoBehaviour
         {
             case PrinterState.ReadyToStart:
                 // 프린터 작동 시작
-                Debug.Log("프린터 작동 시작! (n분 대기 필요)");
+                printStartMoveCount = player.moveCount;
+                currentPrinterState = PrinterState.Printing;
+                Debug.Log("프린터 작동 시작! (1시간 대기 필요)");
                 currentPrinterState = PrinterState.Printing;
                 break;
 
             case PrinterState.Printing:
-                // n분이 경과하기 전 상호작용 시도
-                Debug.Log("프린터가 출력 중입니다. 대기 시간이 지나야 합니다.");
-                break;
+                // 프린터 작동 이후 경과한 이동횟수계산
+                int elapsedMoves = player.moveCount - printStartMoveCount;
+                int elapsedMinutes = elapsedMoves * minutesPerMove;
 
-            case PrinterState.ReadyToCollect:
-                //  업무 완료 및 비활성화
-                Debug.Log("출력물 수령 완료! (프린터 업무 완수)");
-                currentPrinterState = PrinterState.Finished;
+                // 1시간 이상 지났는지
+                if (elapsedMinutes >= requiredMinutes)
+                {
+                    Debug.Log($"🎉 출력물 수령 완료!  프린터 업무 완수");
+                    currentPrinterState = PrinterState.Finished;
 
-                // 상호작용 타일 삭제
-                eventTilemap.SetTile(cellPosition, null);
+                    // 타일 비활성화
+                    eventTilemap.SetTile(cellPosition, null);
+                }
+                else
+                {
+                    Debug.Log($"⏳ 아직 출력 중입니다. ({elapsedMinutes}분 / {requiredMinutes}분 경과 - {requiredMinutes - elapsedMinutes}분 더 필요)");
+                }
                 break;
 
             case PrinterState.Finished:
