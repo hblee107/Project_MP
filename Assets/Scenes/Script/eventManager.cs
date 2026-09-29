@@ -11,8 +11,11 @@ public class eventManager : MonoBehaviour
     [SerializeField] private TileBase eventTile2;
     [SerializeField] private TileBase eventTile3;
     [SerializeField] private TileBase eventTile4;
+    [SerializeField] private TileBase eventTile5;
 
     [SerializeField] int document = 0;
+
+    private bool isCollectDocument = false;
 
     private bool isReportCompleted = false; // 보고서 작성 완료 여부
 
@@ -51,6 +54,10 @@ public class eventManager : MonoBehaviour
         else if (currentTile == eventTile4)
         {
             Event4(cellPosition);
+        }
+        else if (currentTile == eventTile5)
+        {
+            Clear(cellPosition);
         }
     }
 
@@ -110,7 +117,27 @@ public class eventManager : MonoBehaviour
 
     private void Event4(Vector3Int cellPosition)
     {
-        Debug.Log(CountTiles());
+        if (CountTiles() <= 0)
+        {
+            Debug.Log("서류를 모두 모았습니다.");
+            isCollectDocument = true;
+        }
+        else
+        {
+            Debug.Log($"아직 서류가 {CountTiles()}개 남았습니다.");
+        }
+    }
+
+    private void Clear(Vector3Int cellPosition)
+    {
+        if (isCollectDocument)
+        {
+            Debug.Log("게임 클리어!");
+        }
+        else
+        {
+            Debug.Log("아직 해야 할 일이 남았습니다.");
+        }
     }
 
     public void CompletePrinterProcess()
