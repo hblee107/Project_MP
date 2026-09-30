@@ -14,7 +14,7 @@ public class eventManager : MonoBehaviour
     [SerializeField] private TileBase eventTile4;
     [SerializeField] private TileBase eventTile5;
 
-    private readonly int requiredMinutes = 60; // 프린트 출력 필요 시간
+    private readonly int requiredMinutes = 120; // 프린트 출력 필요 시간
     private readonly int minutesPerMove = 15;   // 1칸 이동당 15분
     private int printStartMoveCount = 0;       // 프린터 작동을 시작한 시점의 moveCount
 
@@ -93,8 +93,7 @@ public class eventManager : MonoBehaviour
                 // 프린터 작동 시작
                 printStartMoveCount = player.moveCount;
                 currentPrinterState = PrinterState.Printing;
-                Debug.Log("프린터 작동 시작! (1시간 대기 필요)");
-                currentPrinterState = PrinterState.Printing;
+                Debug.Log("프린터 작동 시작! (2시간 대기 필요)");
                 break;
 
             case PrinterState.Printing:
@@ -102,7 +101,7 @@ public class eventManager : MonoBehaviour
                 int elapsedMoves = player.moveCount - printStartMoveCount;
                 int elapsedMinutes = elapsedMoves * minutesPerMove;
 
-                // 1시간 이상 지났는지
+                // 2시간 이상 지났는지
                 if (elapsedMinutes >= requiredMinutes)
                 {
                     Debug.Log($"🎉 출력물 수령 완료!  프린터 업무 완수");
@@ -124,7 +123,7 @@ public class eventManager : MonoBehaviour
 
     private void GetDocument(Vector3Int cellPosition)
     {
-        Debug.Log("4번");
+        Debug.Log("서류 획득");
         document++;
         eventTilemap.SetTile(cellPosition, null);
     }

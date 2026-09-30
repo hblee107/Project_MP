@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: event4
+  m_Name: printer_writing
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: 7482667652216324306, guid: 31224b4fa62493747a718780b7fc85a9, type: 3}
-  m_Color: {r: 1, g: 0.98296225, b: 0.47484267, a: 1}
+  m_Color: {r: 1, g: 0.015723169, b: 0.015723169, a: 1}
   m_Transform:
     e00: 1
     e01: 0
