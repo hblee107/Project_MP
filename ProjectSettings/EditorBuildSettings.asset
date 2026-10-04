@@ -8,6 +8,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Main_Menu.unity
+    guid: bfee018c45e67b345802c56fbe396269
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Stage.unity
+    guid: f1b05956106fbde43a09e0603e9cc29b
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Gallery.unity
+    guid: fba6e422b99b84449badbea17daa3f50
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Credit.unity
+    guid: 0eb113cbf55aa6647931cd9196c7c4dd
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Settings/GrapicSet.unity
+    guid: 55a421d2eac7ee348974b11dae883f15
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Settings/KeyBinding.unity
+    guid: a19218d0286392b4f9b12ca387ab457b
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Settings/Setting.unity
+    guid: 711a35490cc28ba4eadd76bae7c0d2ad
+  - enabled: 1
+    path: Assets/Scenes/Scene/Startview/Settings/SoundSet.unity
+    guid: e7a5be006b2db5c4d90209e7694b34ca
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 94c279376b4620941a478135ea52fc3a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
