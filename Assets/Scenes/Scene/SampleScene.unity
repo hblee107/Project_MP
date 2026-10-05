@@ -181,13 +181,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6176f6b7a1bc645a26a1cef7d322fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventSystem
-  eventTilemap: {fileID: 1798436997}
   player: {fileID: 2116731310}
+  eventTilemap: {fileID: 1798436997}
   eventTile1: {fileID: 11400000, guid: 7d322e1fdf3185e4f8aecfdfbc691292, type: 2}
   eventTile2: {fileID: 11400000, guid: ac3901c54e835c248a354995fa97e3c8, type: 2}
   eventTile3: {fileID: 11400000, guid: 9eb9608547ad2fd489922cda1ba2b5c7, type: 2}
   eventTile4: {fileID: 11400000, guid: 898d24770a265504dbcc0334f9352436, type: 2}
   eventTile5: {fileID: 11400000, guid: a75ebf30777d87340a30a0f2bcd20553, type: 2}
+  startTile: {fileID: 11400000, guid: ae5b2cbb2c4894b4496bd66c24b565f2, type: 2}
   document: 0
 --- !u!1 &519420028
 GameObject:
@@ -1971,6 +1972,16 @@ Tilemap:
   m_GameObject: {fileID: 1798436996}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: 0, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 5
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 3, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -2093,11 +2104,13 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 9eb9608547ad2fd489922cda1ba2b5c7, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: a75ebf30777d87340a30a0f2bcd20553, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: ae5b2cbb2c4894b4496bd66c24b565f2, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 11
+  - m_RefCount: 12
     m_Data: {fileID: 7482667652216324306, guid: 31224b4fa62493747a718780b7fc85a9, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 11
+  - m_RefCount: 12
     m_Data:
       e00: 1
       e01: 0
@@ -2126,6 +2139,8 @@ Tilemap:
     m_Data: {r: 0.22327036, g: 0.6265851, b: 1, a: 1}
   - m_RefCount: 3
     m_Data: {r: 0.25875157, g: 0.9245283, b: 0.6173427, a: 1}
+  - m_RefCount: 1
+    m_Data: {r: 1, g: 0.40988678, b: 0, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

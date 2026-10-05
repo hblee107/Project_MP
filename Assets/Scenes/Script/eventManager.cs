@@ -3,9 +3,11 @@ using UnityEngine.Tilemaps;
 
 public class eventManager : MonoBehaviour
 {
+    [Header("플레이어 스크립트")]
+    [SerializeField] private playerMove player;
+
     [Header("이벤트 타일맵")]
     [SerializeField] private Tilemap eventTilemap;
-    [SerializeField] private playerMove player;
 
     [Header("이벤트 타일")]
     [SerializeField] private TileBase eventTile1;
@@ -13,6 +15,7 @@ public class eventManager : MonoBehaviour
     [SerializeField] private TileBase eventTile3;
     [SerializeField] private TileBase eventTile4;
     [SerializeField] private TileBase eventTile5;
+    [SerializeField] private TileBase startTile;
 
     private readonly int requiredMinutes = 120; // 프린트 출력 필요 시간
     private readonly int minutesPerMove = 15;   // 1칸 이동당 15분
@@ -59,11 +62,11 @@ public class eventManager : MonoBehaviour
         }
         else if (currentTile == eventTile4)
         {
-            Event4(cellPosition);
+            Event4();
         }
         else if (currentTile == eventTile5)
         {
-            Clear(cellPosition);
+            Clear();
         }
     }
 
@@ -128,7 +131,7 @@ public class eventManager : MonoBehaviour
         eventTilemap.SetTile(cellPosition, null);
     }
 
-    private void Event4(Vector3Int cellPosition)
+    private void Event4()
     {
         if (CountTiles() <= 0)
         {
@@ -141,7 +144,7 @@ public class eventManager : MonoBehaviour
         }
     }
 
-    private void Clear(Vector3Int cellPosition)
+    private void Clear()
     {
         if (isCollectDocument)
         {
@@ -181,6 +184,41 @@ public class eventManager : MonoBehaviour
         }
 
         return count;
+    }
+
+    public Vector3Int GetStartCell()
+    {
+        if (startTile == null)
+        {
+            Debug.LogError("플레이어 시작 위치 타일이 연결되지 않았습니다.");
+            return Vector3Int.zero;
+        }
+
+        int startTileCount = 0;
+        Vector3Int startCell = Vector3Int.zero;
+        BoundsInt bounds = eventTilemap.cellBounds;
+
+        foreach (Vector3Int cellPosition in bounds.allPositionsWithin)
+        {
+            TileBase currentTile = eventTilemap.GetTile(cellPosition);
+
+            if (currentTile == startTile)
+            {
+                startCell = cellPosition;
+                startTileCount++;
+            }
+        }
+
+        if (startTileCount == 0)
+        {
+            Debug.LogError("플레이어 시작 위치 타일을 찾지 못했습니다.");
+        }
+        else if (startTileCount > 1)
+        {
+            Debug.LogWarning($"시작 위치 타일이 {startTileCount}개 이므로 확인이 필요합니다.");
+        }
+
+        return startCell;
     }
 
 }

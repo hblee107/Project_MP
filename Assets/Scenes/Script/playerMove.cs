@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
-using static UnityEngine.Rendering.DebugUI;
 
 public class playerMove : MonoBehaviour
 {
@@ -22,7 +21,16 @@ public class playerMove : MonoBehaviour
 
     private void Awake()
     {
-        currentCell = moveableTile.WorldToCell(transform.position);
+        if (eventSystem != null)
+        {
+            currentCell = eventSystem.GetStartCell();
+        }
+        else
+        {
+            Debug.LogWarning("eventManager가 연결되지 않아 현재 플레이어 위치를 사용합니다.");
+            currentCell = moveableTile.WorldToCell(transform.position);
+        }
+
         transform.position = moveableTile.GetCellCenterWorld(currentCell);
     }
 
@@ -43,6 +51,7 @@ public class playerMove : MonoBehaviour
             TryMove(direction);
         }
     }
+
     public void OnInteract(InputValue inputValue)
     {
         // 이동 중일 때는 상호작용 불가
@@ -56,9 +65,6 @@ public class playerMove : MonoBehaviour
             }
         }
     }
-
-
-    
 
     private Vector3Int GetDirection(Vector2 input)
     {
