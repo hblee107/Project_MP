@@ -10,11 +10,11 @@ public class eventManager : MonoBehaviour
     [SerializeField] private Tilemap eventTilemap;
 
     [Header("이벤트 타일")]
-    [SerializeField] private TileBase eventTile1;
-    [SerializeField] private TileBase eventTile2;
-    [SerializeField] private TileBase eventTile3;
-    [SerializeField] private TileBase eventTile4;
-    [SerializeField] private TileBase eventTile5;
+    [SerializeField] private TileBase printerWritingTile;
+    [SerializeField] private TileBase printerTile;
+    [SerializeField] private TileBase documentDroppedTile;
+    [SerializeField] private TileBase documentSubmitTile;
+    [SerializeField] private TileBase clearTile;
     [SerializeField] private TileBase startTile;
 
     private readonly int requiredMinutes = 120; // 프린트 출력 필요 시간
@@ -48,29 +48,29 @@ public class eventManager : MonoBehaviour
         }
 
 
-        if (currentTile == eventTile1)
+        if (currentTile == printerWritingTile)
         {
-            Event1(cellPosition);
+            PrinterWriting(cellPosition);
         }
-        else if (currentTile == eventTile2)
+        else if (currentTile == printerTile)
         {
-            Event2(cellPosition);
+            Printer(cellPosition);
         }
-        else if (currentTile == eventTile3)
+        else if (currentTile == documentDroppedTile)
         {
             GetDocument(cellPosition);
         }
-        else if (currentTile == eventTile4)
+        else if (currentTile == documentSubmitTile)
         {
-            Event4();
+            SubmitDocument();
         }
-        else if (currentTile == eventTile5)
+        else if (currentTile == clearTile)
         {
             Clear();
         }
     }
 
-    private void Event1(Vector3Int cellPosition)
+    private void PrinterWriting(Vector3Int cellPosition)
     {
         Debug.Log("보고서 작성 완료!");
 
@@ -80,7 +80,7 @@ public class eventManager : MonoBehaviour
         eventTilemap.SetTile(cellPosition, null);
     }
 
-    private void Event2(Vector3Int cellPosition)
+    private void Printer(Vector3Int cellPosition)
     {
         // 보고서를 안 쓰고 상호작용했을 떄
         if (!isReportCompleted)
@@ -131,7 +131,7 @@ public class eventManager : MonoBehaviour
         eventTilemap.SetTile(cellPosition, null);
     }
 
-    private void Event4()
+    private void SubmitDocument()
     {
         if (CountTiles() <= 0)
         {
@@ -167,7 +167,7 @@ public class eventManager : MonoBehaviour
 
     public int CountTiles()
     {
-        if (eventTilemap == null || eventTile3 == null)
+        if (eventTilemap == null || documentDroppedTile == null)
             return 0;
 
         int count = 0;
@@ -177,7 +177,7 @@ public class eventManager : MonoBehaviour
         {
             TileBase currentTile = eventTilemap.GetTile(cellPosition);
 
-            if (currentTile == eventTile3)
+            if (currentTile == documentDroppedTile)
             {
                 count++;
             }
