@@ -1401,7 +1401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageGo
   Stage1Button: {fileID: 948346211}
-  StageScene: Stage1
+  StageScene: SampleScene
 --- !u!1 &1602676317
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,5 +183,9 @@ public class eventManager : MonoBehaviour
         return count;
     }
 
+    // 외부에서 이벤트 진행 상태를 읽어갈 수 있도록 열어주는 코드
+    public bool IsReportCompleted => isReportCompleted;
+    public bool IsCollectDocument => isCollectDocument;
+    public bool IsPrintFinished => (currentPrinterState == PrinterState.Finished);
 }
 

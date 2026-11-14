@@ -10,8 +10,8 @@ public class timeManager : MonoBehaviour
     [SerializeField] int endHour = 0;
     [SerializeField] int endMinute = 0;
 
-    int currentHour = 0;
-    int currentMinute = 0;
+    public int currentHour = 0;
+    public int currentMinute = 0;
 
 
     void Awake()
