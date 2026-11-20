@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NowTime : MonoBehaviour
 {
@@ -12,15 +13,30 @@ public class NowTime : MonoBehaviour
     [SerializeField] private Image sliderImage;
 
     [Header("설정")]
-    [SerializeField] private string color = "#DC143C";
+    [SerializeField] private string sliderColorHex = "#DC143C";
     [SerializeField] private float sliderDuration = 0.5f;
 
+    [Header("텍스트 변경 3색")]
+    [SerializeField]
+    private string[] textColor = new string[]
+    {
+        "#FF4D4D", // 1번째 색상 (빨강)
+        "#FFD700", // 2번째 색상 (노랑)
+        "#4DFF88"  // 3번째 색상 (초록)
+    };
+    [SerializeField] private float colorChangeTime = 0.5f; // 변경 간격(초)
+
     Color sliderColor;
+    List <Color> parsedTextColors = new List<Color>();
 
     int endhour;
     int starthour;
-    float lastTargetValue = -1f; // 이전 목표값 저장용
+
+    float lastTargetValue = -1f;
     Coroutine fillCoroutine;
+    
+    Coroutine colorLoopCoroutine;
+
 
     void Start()
     {
@@ -31,7 +47,16 @@ public class NowTime : MonoBehaviour
         timeSlider.maxValue = endhour - starthour;
         timeSlider.value = timeSlider.maxValue;
 
-        ColorUtility.TryParseHtmlString(color, out sliderColor);
+        ColorUtility.TryParseHtmlString(sliderColorHex, out sliderColor);
+
+        parsedTextColors.Clear();
+        foreach (string hex in textColor)
+        {
+            if (ColorUtility.TryParseHtmlString(hex, out Color c))
+            {
+                parsedTextColors.Add(c);
+            }
+        }
     }
 
     void Update()
@@ -48,6 +73,11 @@ public class NowTime : MonoBehaviour
         if ((endhour - currenthour) <= 60)
         {
             sliderImage.color = sliderColor;
+
+            if (colorLoopCoroutine == null && parsedTextColors.Count > 0)
+            {
+                colorLoopCoroutine = StartCoroutine(CycleTextColors());
+            }
         }
 
         if (!Mathf.Approximately(lastTargetValue, remainingMinutes))
@@ -59,9 +89,12 @@ public class NowTime : MonoBehaviour
         timeText.text = $"{hour:D2} : {minute:D2}";
     }
 
+    // 슬라이더(진행 바) 관련
     public void SetSlider(float targetSlider)
     {
-        StopAllCoroutines();
+        if (fillCoroutine != null)
+            StopCoroutine(fillCoroutine);
+
         float clampedTarget = Mathf.Clamp(targetSlider, timeSlider.minValue, timeSlider.maxValue);
         fillCoroutine = StartCoroutine(FillAnime(clampedTarget));
     }
@@ -80,5 +113,18 @@ public class NowTime : MonoBehaviour
         }
 
         timeSlider.value = target;
+    }
+
+    // 시간 색상 변경
+    private IEnumerator CycleTextColors()
+    {
+        int index = 0;
+
+        while (true)
+        {
+            timeText.color = parsedTextColors[index];
+            index = (index + 1) % parsedTextColors.Count;
+            yield return new WaitForSeconds(colorChangeTime); // 변수명 일치
+        }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class eventManager : MonoBehaviour
 {
@@ -181,6 +182,16 @@ public class eventManager : MonoBehaviour
         }
 
         return count;
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void Exit()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     // 외부에서 이벤트 진행 상태를 읽어갈 수 있도록 열어주는 코드

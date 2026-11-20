@@ -10,6 +10,9 @@ public class timeManager : MonoBehaviour
     [SerializeField] public int endHour = 0;
     [SerializeField] public int endMinute = 0;
 
+    [Header("게임 오버 UI")]
+    [SerializeField] private GameObject gameOverUI;
+
     public int currentHour = 0;
     public int currentMinute = 0;
 
@@ -33,6 +36,7 @@ public class timeManager : MonoBehaviour
         if (currentTime >= (endHour * 60) + endMinute)
         {
             Debug.Log($"<게임오버> 현재 {endHour:D2}:{endMinute:D2}로 퇴근시간입니다.");
+            gameOverUI.SetActive(true);
         }
         else 
         {
