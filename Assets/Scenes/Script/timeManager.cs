@@ -5,10 +5,10 @@ public class timeManager : MonoBehaviour
     public playerMove player;
 
     [Header("시간 설정")]
-    [SerializeField] int startHour = 0;
-    [SerializeField] int startMinute = 0;
-    [SerializeField] int endHour = 0;
-    [SerializeField] int endMinute = 0;
+    [SerializeField] public int startHour = 0;
+    [SerializeField] public int startMinute = 0;
+    [SerializeField] public int endHour = 0;
+    [SerializeField] public int endMinute = 0;
 
     public int currentHour = 0;
     public int currentMinute = 0;
