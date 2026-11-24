@@ -191,7 +191,11 @@ public class eventManager : MonoBehaviour
 
     public void Exit()
     {
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
     }
 
     // 외부에서 이벤트 진행 상태를 읽어갈 수 있도록 열어주는 코드
